@@ -1,14 +1,18 @@
-import React from 'react';
-import {View, Text, TouchableOpacity, Image} from 'react-native';
+import React, {useState} from 'react';
+import {View, Text, TouchableOpacity, Image, Alert} from 'react-native';
 
 import AuthLayout from './AuthLayout';
 import {COLORS, SIZES, FONTS} from '../../constants';
 
 import OTPInputView from '@twotalltotems/react-native-otp-input';
 import {TextButton} from '../../components';
+import axios from 'axios';
+import envURL from '../../envURL';
 
-const Otp = () => {
+const Otp = ({navigation, route}) => {
   const [timer, setTimer] = React.useState(60);
+  const {email, password, username, userid} = route.params;
+  const [otp, setOtp] = useState(null);
   React.useEffect(() => {
     let interval = setInterval(() => {
       setTimer(prevTimer => {
@@ -21,6 +25,32 @@ const Otp = () => {
     }, 1000);
     return () => clearInterval(interval);
   }, []);
+
+  const VerifyOTP = async () => {
+    // console.log("rnv dtstud ",env.REACT_APP_BACKEND_URL)
+    console.log(userid);
+    await axios
+      .post(`${envURL.REACT_APP_BACKEND_URL}/account/verifyemail`, {
+        userid: userid,
+        Token: otp,
+        Email: email,
+        Password: password,
+        UserName: username,
+      })
+      .then(res => {
+        console.log(res.data);
+        navigation.navigate('MainLayout');
+      })
+      .catch(err => {
+        // console.log(err.response);
+        Alert.alert(
+          'Title',
+          err.response.data.error
+            ? err.response.data.error
+            : 'Something Went Wrong! Try Again',
+        );
+      });
+  };
   return (
     <AuthLayout
       title="OTP Autication"
@@ -48,7 +78,7 @@ const Otp = () => {
             color: COLORS.black,
           }}
           onCodeFilled={code => {
-            console.log(code);
+            setOtp(code);
           }}
         />
         {/* CountDown */}
@@ -86,7 +116,7 @@ const Otp = () => {
           borderRadius: SIZES.radius,
           backgroundColor: COLORS.primary,
         }}
-        onPress={() => console.log('Continue')}
+        onPress={() => VerifyOTP()}
       />
       <View
         style={{

@@ -12,7 +12,7 @@ import {setSelectedTab} from '../stores/tabs/tabActions';
 
 import LinearGradient from 'react-native-linear-gradient';
 
-import {Home, Search, CartTab, Favourite, Notification} from '../screens';
+import {Home, Search, UploadBook, UserProfile, Notification} from '../screens';
 import {COLORS, FONTS, SIZES, dummyData, constants, icons} from '../constants';
 import {GBHeader} from '../components';
 import {TouchableWithoutFeedback} from 'react-native';
@@ -82,12 +82,12 @@ const MainLayout = ({
   const homeTabColor = useSharedValue(COLORS.white);
   const searchTabFlex = useSharedValue(1);
   const searchTabColor = useSharedValue(COLORS.white);
-  const cartTabFlex = useSharedValue(1);
-  const cartTabColor = useSharedValue(COLORS.white);
-  const favouriteTabFlex = useSharedValue(1);
-  const favouriteTabColor = useSharedValue(COLORS.white);
+  const uploadTabFlex = useSharedValue(1);
+  const uploadTabColor = useSharedValue(COLORS.white);
   const notificationTabFlex = useSharedValue(1);
   const notificationTabColor = useSharedValue(COLORS.white);
+  const profileTabFlex = useSharedValue(1);
+  const profileTabColor = useSharedValue(COLORS.white);
   //Reanimated Animation
   const homeFlexStyle = useAnimatedStyle(() => {
     return {flex: homeTabFlex.value};
@@ -95,29 +95,30 @@ const MainLayout = ({
   const homeColorStyle = useAnimatedStyle(() => {
     return {backgroundColor: homeTabColor.value};
   });
+
   const searchFlexStyle = useAnimatedStyle(() => {
     return {flex: searchTabFlex.value};
   });
   const searchColorStyle = useAnimatedStyle(() => {
     return {backgroundColor: searchTabColor.value};
   });
-  const cartFlexStyle = useAnimatedStyle(() => {
-    return {flex: cartTabFlex.value};
+  const uploadFlexStyle = useAnimatedStyle(() => {
+    return {flex: uploadTabFlex.value};
   });
-  const cartColorStyle = useAnimatedStyle(() => {
-    return {backgroundColor: cartTabColor.value};
-  });
-  const favouriteFlexStyle = useAnimatedStyle(() => {
-    return {flex: favouriteTabFlex.value};
-  });
-  const favouriteColorStyle = useAnimatedStyle(() => {
-    return {backgroundColor: favouriteTabColor.value};
+  const uploadColorStyle = useAnimatedStyle(() => {
+    return {backgroundColor: uploadTabColor.value};
   });
   const notificationFlexStyle = useAnimatedStyle(() => {
     return {flex: notificationTabFlex.value};
   });
   const notificationColorStyle = useAnimatedStyle(() => {
     return {backgroundColor: notificationTabColor.value};
+  });
+  const profileFlexStyle = useAnimatedStyle(() => {
+    return {flex: profileTabFlex.value};
+  });
+  const profileColorStyle = useAnimatedStyle(() => {
+    return {backgroundColor: profileTabColor.value};
   });
 
   React.useEffect(() => {
@@ -149,33 +150,21 @@ const MainLayout = ({
       searchTabColor.value = withTiming(COLORS.white, {duration: 500});
     }
 
-    if (selectedTab == constants.screens.cart) {
+    if (selectedTab == constants.screens.upload) {
       flatlistRef?.current?.scrollToIndex({
         index: 2,
         animated: false,
       });
-      cartTabFlex.value = withTiming(4, {duration: 500});
-      cartTabColor.value = withTiming(COLORS.primary, {duration: 500});
+      uploadTabFlex.value = withTiming(4, {duration: 500});
+      uploadTabColor.value = withTiming(COLORS.primary, {duration: 500});
     } else {
-      cartTabFlex.value = withTiming(1, {duration: 500});
-      cartTabColor.value = withTiming(COLORS.white, {duration: 500});
-    }
-
-    if (selectedTab == constants.screens.favourite) {
-      flatlistRef?.current?.scrollToIndex({
-        index: 3,
-        animated: false,
-      });
-      favouriteTabFlex.value = withTiming(4, {duration: 500});
-      favouriteTabColor.value = withTiming(COLORS.primary, {duration: 500});
-    } else {
-      favouriteTabFlex.value = withTiming(1, {duration: 500});
-      favouriteTabColor.value = withTiming(COLORS.white, {duration: 500});
+      uploadTabFlex.value = withTiming(1, {duration: 500});
+      uploadTabColor.value = withTiming(COLORS.white, {duration: 500});
     }
 
     if (selectedTab == constants.screens.notification) {
       flatlistRef?.current?.scrollToIndex({
-        index: 4,
+        index: 3,
         animated: false,
       });
       notificationTabFlex.value = withTiming(4, {duration: 500});
@@ -184,12 +173,26 @@ const MainLayout = ({
       notificationTabFlex.value = withTiming(1, {duration: 500});
       notificationTabColor.value = withTiming(COLORS.white, {duration: 500});
     }
+
+    if (selectedTab == constants.screens.profile) {
+      flatlistRef?.current?.scrollToIndex({
+        index: 4,
+        animated: false,
+      });
+      profileTabFlex.value = withTiming(4, {duration: 500});
+      profileTabColor.value = withTiming(COLORS.primary, {duration: 500});
+    } else {
+      profileTabFlex.value = withTiming(1, {duration: 500});
+      profileTabColor.value = withTiming(COLORS.white, {duration: 500});
+    }
+    
   }, [selectedTab]);
 
   return (
     <Animated.View
       style={{
         flex: 1,
+        
         backgroundColor: COLORS.white,
         ...drawerAnimationStyle,
       }}>
@@ -223,7 +226,10 @@ const MainLayout = ({
               borderRadius: SIZES.radius,
               alignItems: 'center',
               justifyContent: 'center',
-            }}>
+            }}
+            onPress={()=> navigation.navigate("UserProfile")}
+            //onPress={()=> console.log("Pro")}
+            >
             <Image
               source={dummyData?.myProfile.profile_image_bg}
               style={{
@@ -251,10 +257,10 @@ const MainLayout = ({
           return (
             <View style={{height: SIZES.height, width: SIZES.width}}>
               {item.label == constants.screens.home && <Home />}
-              {item.label == constants.screens.search && <Search />}
-              {item.label == constants.screens.cart && <CartTab />}
-              {item.label == constants.screens.favourite && <Favourite />}
+               {item.label == constants.screens.search && <Search />} 
+              {item.label == constants.screens.upload && <UploadBook />}
               {item.label == constants.screens.notification && <Notification />}
+              {item.label == constants.screens.profile && <UserProfile />}
             </View>
           );
         }}
@@ -293,6 +299,7 @@ const MainLayout = ({
             innerContainerStyle={homeColorStyle}
             onPress={() => setSelectedTab(constants.screens.home)}
           />
+           
           <TabButton
             label={constants.screens.search}
             icon={icons.search}
@@ -302,20 +309,12 @@ const MainLayout = ({
             onPress={() => setSelectedTab(constants.screens.search)}
           />
           <TabButton
-            label={constants.screens.cart}
-            icon={icons.cart}
-            isFocused={selectedTab == constants.screens.cart}
-            outerContainerStyle={cartFlexStyle}
-            innerContainerStyle={cartColorStyle}
-            onPress={() => setSelectedTab(constants.screens.cart)}
-          />
-          <TabButton
-            label={constants.screens.favourite}
+            label={constants.screens.upload}
             icon={icons.favourite}
-            isFocused={selectedTab == constants.screens.favourite}
-            outerContainerStyle={favouriteFlexStyle}
-            innerContainerStyle={favouriteColorStyle}
-            onPress={() => setSelectedTab(constants.screens.favourite)}
+            isFocused={selectedTab == constants.screens.upload}
+            outerContainerStyle={uploadFlexStyle}
+            innerContainerStyle={uploadColorStyle}
+            onPress={() => setSelectedTab(constants.screens.upload)}
           />
           <TabButton
             label={constants.screens.notification}
@@ -324,6 +323,14 @@ const MainLayout = ({
             outerContainerStyle={notificationFlexStyle}
             innerContainerStyle={notificationColorStyle}
             onPress={() => setSelectedTab(constants.screens.notification)}
+          />
+          <TabButton
+            label={constants.screens.profile}
+            icon={icons.profile}
+            isFocused={selectedTab == constants.screens.profile}
+            outerContainerStyle={profileFlexStyle}
+            innerContainerStyle={profileColorStyle}
+            onPress={() => setSelectedTab(constants.screens.profile)}
           />
         </View>
       </View>

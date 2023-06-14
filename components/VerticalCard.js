@@ -38,8 +38,10 @@ const VerticalCard = ({containerStyle, item, onPress}) => {
           widht: 150,
           alignItems: 'center',
           justifyContent: 'center',
+          marginVertical:SIZES.base,
+          marginHorizontal: 12
         }}>
-        <Image source={item.image} style={{height: '100%', width: '100%'}} />
+        <Image source={item.image} style={{borderRadius: 400,height: '100%', width: '100%'}} />
       </View>
       {/* Info */}
       <Text style={{...FONTS.h3, fontWeight: 'bold', textAlign: 'center'}}>

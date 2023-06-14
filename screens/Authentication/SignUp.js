@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, TouchableOpacity, Image} from 'react-native';
+import {View, Text, TouchableOpacity, Image, Alert} from 'react-native';
 
 import AuthLayout from './AuthLayout';
 
@@ -11,6 +11,8 @@ import {
 } from '../../components';
 import {COLORS, FONTS, SIZES, icons} from '../../constants';
 import {utils} from '../../utils';
+import axios from 'axios';
+import envURL from '../../envURL';
 
 const SignUp = ({navigation}) => {
   const [email, setEmail] = React.useState('');
@@ -32,6 +34,35 @@ const SignUp = ({navigation}) => {
       usernameError == ''
     );
   }
+
+  const TrySignUp = async () => {
+    // console.log("rnv dtstud ",env.REACT_APP_BACKEND_URL)
+    console.log('Hello');
+    await axios
+      .post(`${envURL.REACT_APP_BACKEND_URL}/account/createaccount`, {
+        Email: email,
+        Password: password,
+        UserName: username,
+      })
+      .then(res => {
+        console.log(res.data);
+        navigation.navigate('Otp', {
+          email,
+          password,
+          username,
+          userid: res.data.userid,
+        });
+      })
+      .catch(err => {
+        console.log(err);
+        Alert.alert(
+          'Title',
+          err.response.data.msg
+            ? err.response.data.msg
+            : 'Something Went Wrong! Try Again',
+        );
+      });
+  };
 
   return (
     <AuthLayout
@@ -99,7 +130,7 @@ const SignUp = ({navigation}) => {
                 source={
                   email == '' || (email != '' && emailError == '')
                     ? icons.correct
-                    : icons.cross
+                    : icons.cancel
                 }
                 style={{
                   height: 20,
@@ -155,7 +186,7 @@ const SignUp = ({navigation}) => {
               ? COLORS.primary
               : COLORS.transparentPrimary,
           }}
-          onPress={() => navigation.navigate('Otp')}
+          onPress={() => TrySignUp()}
         />
         {/* Sign In */}
         <View
@@ -180,51 +211,6 @@ const SignUp = ({navigation}) => {
             onPress={() => navigation.goBack()}
           />
         </View>
-      </View>
-
-      {/* Footer */}
-      <View>
-        {/* FB */}
-        <TextIconButton
-          containerStyle={{
-            height: 50,
-            alignItems: 'center',
-            borderRadius: SIZES.radius,
-            backgroundColor: COLORS.blue,
-          }}
-          icon={icons.fb}
-          iconPosition="LEFT"
-          iconStyle={{
-            tintColor: COLORS.white,
-          }}
-          label="Continue With Facebook"
-          labelStyle={{
-            marginLeft: SIZES.radius,
-            color: COLORS.white,
-          }}
-          onPress={() => console.log('FB')}
-        />
-        {/* Google */}
-        <TextIconButton
-          containerStyle={{
-            height: 50,
-            alignItems: 'center',
-            marginTop: SIZES.radius,
-            borderRadius: SIZES.radius,
-            backgroundColor: COLORS.lightGray2,
-          }}
-          icon={icons.google}
-          iconPosition="LEFT"
-          iconStyle={{
-            tintColor: null,
-          }}
-          label="Continue With Google"
-          labelStyle={{
-            marginLeft: SIZES.radius,
-            color: COLORS.black,
-          }}
-          onPress={() => console.log('Google')}
-        />
       </View>
     </AuthLayout>
   );

@@ -27,7 +27,7 @@ import ForgotPassword from './Authentication/ForgotPassword';
 
 import FoodDetail from './Food/FoodDetail';
 // Cart
-import Checkout from './Cart/Checkout';
+import OrderTrack from './Cart/OrderTrack';
 import MyCart from './Cart/MyCart';
 import Success from './Cart/Success';
 
@@ -40,6 +40,13 @@ import DeliveryStatus from './Delivery/DeliveryStatus';
 import Map from './Delivery/Map';
 
 import AuthLayout from './Authentication/AuthLayout';
+
+import UserProfile from './Profile/UserProfile';
+
+import UploadBook from './Profile/UploadBook';
+
+
+
 export {
   MainLayout,
   FilterModal,
@@ -55,11 +62,13 @@ export {
   ForgotPassword,
   AuthLayout,
   FoodDetail,
-  Checkout,
+  OrderTrack,
   MyCart,
   Success,
   AddCard,
   MyCard,
   DeliveryStatus,
   Map,
+  UserProfile,
+  UploadBook,
 };

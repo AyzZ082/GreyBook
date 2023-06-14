@@ -20,8 +20,36 @@ const StepperInput = ({containerStyle, value = 1, onAdd, onMinus}) => {
           alignItems: 'center',
           justifyContent: 'center',
         }}
-        icon={icons.star}
-        // iconStyle={}
+        icon={icons.minus}
+         iconStyle={{
+          height: 25,
+          width: 25,
+          tintColor: value >1 ? COLORS.primary : COLORS.gray
+         }}
+         onPress={onMinus}
+      />
+      <View style={{
+        flex:1,
+        alignItems: 'center',
+        justifyContent: 'center'
+      }}>
+        <Text style={{
+          ...FONTS.h2
+        }}>{value}</Text>
+      </View>
+      <IconButton
+        containerStyle={{
+          width: 50,
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+        icon={icons.plus}
+         iconStyle={{
+          height: 25,
+          width: 25,
+          tintColor: COLORS.primary
+         }}
+         onPress={onAdd}
       />
     </View>
   );

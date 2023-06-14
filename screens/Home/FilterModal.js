@@ -11,8 +11,22 @@ import {
 } from 'react-native';
 import {COLORS, FONTS, SIZES, icons} from '../../constants';
 
-import {IconButton} from '../../components';
+import {IconButton, TextButton, TwoPointSlider} from '../../components';
 
+const Section = ({containerStyle, title, children})=>{
+  return(
+    <View
+    style={{
+      marginTop:SIZES.padding,
+      ...containerStyle
+    }}
+    >
+      <Text style={{...FONTS.h3}}>{title}</Text>
+
+      {children}
+    </View>
+  )
+}
 const FilterModal = ({isVisible, onClose}) => {
   const modalAnimatedValue = React.useRef(new Animated.Value(0)).current;
 
@@ -36,9 +50,25 @@ const FilterModal = ({isVisible, onClose}) => {
 
   const modalY = modalAnimatedValue.interpolate({
     inputRange: [0, 1],
-    outputRange: [SIZES.height, SIZES.height - 650],
+    outputRange: [SIZES.height, SIZES.height - 320],
   });
-
+  function renderBudget(){
+    return(
+      <Section title="Price">
+        <View style={{
+          alignItems: 'center'
+        }}>
+          <TwoPointSlider
+          values={[3,10]}
+          min={1}
+          max={1000}
+          postfix=" Rs."
+          onValuesChange={(values)=> console.log(values)}
+          />
+        </View>
+      </Section>
+    )
+  }
   return (
     <Modal animationType="fade" transparent={true} visible={isVisible}>
       <View style={{flex: 1, backgroundColor: COLORS.transparentBlack7}}>
@@ -85,6 +115,23 @@ const FilterModal = ({isVisible, onClose}) => {
               onPress={() => setShowFilterModal(false)}
             />
           </View>
+          <ScrollView showsVerticalScrollIndicator={false}
+          contentContainerStyle={{paddingBottom:250}}
+          >
+            {/* Budget */}
+            {renderBudget()}
+            <TextButton
+            label="Apply Filters"
+            buttonStyle={{
+              height:50,
+              marginTop: SIZES.padding*2,
+              borderRadius: SIZES.base,
+              backgroundColor: COLORS.primary
+            }}
+            onPress={()=> console.log("Apply Filter")}
+            />
+          </ScrollView>
+          
         </Animated.View>
       </View>
     </Modal>

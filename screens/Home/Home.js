@@ -23,7 +23,7 @@ const Section = ({title, onPress, children}) => {
           marginBottom: 20,
         }}>
         <Text style={{flex: 1, ...FONTS.h3}}>{title}</Text>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={onPress}>
           <Text style={{color: COLORS.primary, ...FONTS.body3}}>Show All</Text>
         </TouchableOpacity>
       </View>
@@ -33,7 +33,7 @@ const Section = ({title, onPress, children}) => {
   );
 };
 
-const Home = () => {
+const Home = ({navigation}) => {
   const [selectedCategoryId, setSelectedCategoryId] = React.useState(1);
   const [selectedMenuType, setSelectedMenuType] = React.useState(1);
   const [recommends, setRecommends] = React.useState([]);
@@ -76,6 +76,7 @@ const Home = () => {
       <View
         style={{
           flexDirection: 'row',
+          
           height: 40,
           alignItems: 'center',
           marginHorizontal: SIZES.padding,
@@ -91,7 +92,7 @@ const Home = () => {
         />
         {/* Text Input */}
         <TextInput
-          style={{flex: 1, marginLeft: SIZES.radius, ...FONTS.body3}}
+          style={{flex: 1, marginLeft: SIZES.radius, ...FONTS.body3,}}
           placeholder="Seacrh books..."
         />
         {/* FilterButton */}
@@ -159,7 +160,7 @@ const Home = () => {
                 paddingRight: SIZES.radius,
                 alignItems: 'center',
               }}
-              imageStyle={{marginTop: 35, height: 150, width: 150}}
+              imageStyle={{marginVertical: 35,marginHorizontal:15, height: 150, width: 150,borderRadius: 400,}}
               item={item}
               onPress={() => console.log('HorizontalFoodCard')}
             />
@@ -168,11 +169,11 @@ const Home = () => {
       </Section>
     );
   }
-  function renderCategories() {
+  function renderCategories( ) {
     return (
       <Section
         title="Categories"
-        onPress={() => console.log('Show Categories')}>
+        onPress={() => console.log('Show Recommended')}>
         <FlatList
           data={dummyData.categories}
           keyExtractor={item => `${item.id}`}
@@ -292,6 +293,9 @@ const Home = () => {
                 height: 110,
                 width: 110,
                 marginTop: 20,
+                borderRadius: 400,
+                marginHorizontal:10,
+                marginVertical:20,
               }}
               item={item}
               onPress={() => console.log('Card Clicked')}

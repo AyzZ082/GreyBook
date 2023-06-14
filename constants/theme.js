@@ -5,8 +5,9 @@ export const COLORS = {
   // primary: '#55185D', //orange
   //primary: '#D4AF37',
   //primary: '#76BA1B',
-  primary: '#26B553',
-  transparentPrimary: 'rgba(227, 120, 75, 0.4)',
+  primary: '#32223f',
+  // transparentPrimary: 'rgba(50, 34, 63, 0.4)',
+  transparentPrimary: 'rgba(200, 159, 233, 0.5)',
   orange: '#55185d',
   lightOrange: '#55185d',
   lightOrange2: '#55185d',

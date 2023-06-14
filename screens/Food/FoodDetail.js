@@ -16,10 +16,13 @@ import {
   IconLabel,
   LineDivider,
   Ratings,
+  StepperInput,
+  TextButton,
+  TextIconButton,
 } from '../../components';
 import HorizontalCard from '../../components';
 
-const FoodDetail = ({navigation}) => {
+const FoodDetail = ({ navigation }) => {
   // const [selectedCategoryId, setSelectedCategoryId] = React.useState(1);
   // const [selectedMenuType, setSelectedMenuType] = React.useState(1);
   // const [recommends, setRecommends] = React.useState([]);
@@ -56,29 +59,30 @@ const FoodDetail = ({navigation}) => {
   // }
 
   const [foodItem, setFoodItem] = React.useState(dummyData.wrapSandwich);
-  const Section = ({title, onPress, children}) => {
-    return (
-      <View>
-        {/* Header */}
-        <View
-          style={{
-            flexDirection: 'row',
-            marginHorizontal: SIZES.padding,
-            marginTop: 30,
-            marginBottom: 20,
-          }}>
-          <Text style={{flex: 1, ...FONTS.h3}}>{title}</Text>
-          <TouchableOpacity>
-            <Text style={{color: COLORS.primary, ...FONTS.body3}}>
-              Show All
-            </Text>
-          </TouchableOpacity>
-        </View>
-        {/* Content */}
-        {children}
-      </View>
-    );
-  };
+  const [qty, setQty] = React.useState(1);
+  // const Section = ({title, onPress, children}) => {
+  //   return (
+  //     <View>
+  //       {/* Header */}
+  //       <View
+  //         style={{
+  //           flexDirection: 'row',
+  //           marginHorizontal: SIZES.padding,
+  //           marginTop: 30,
+  //           marginBottom: 20,
+  //         }}>
+  //         <Text style={{flex: 1, ...FONTS.h3}}>{title}</Text>
+  //         <TouchableOpacity>
+  //           <Text style={{color: COLORS.primary, ...FONTS.body3}}>
+  //             Show All
+  //           </Text>
+  //         </TouchableOpacity>
+  //       </View>
+  //       {/* Content */}
+  //       {children}
+  //     </View>
+  //   );
+  // };
 
   function renderHeader() {
     return (
@@ -152,7 +156,29 @@ const FoodDetail = ({navigation}) => {
             marginLeft: 3,
           }}
         />
+      
+      <IconButton
+            icon={icons.menu}
+            containerStyle={{
+              width: 40,
+              height: 40,
+              alignItems: 'center',
+              justifyContent: 'center',
+              borderColor: COLORS.primary,
+              borderWidth: 1,
+              borderRadius: SIZES.radius,
+              marginLeft: SIZES.radius
+            }}
+            iconStyle={{
+              width: 20,
+              height: 20,
+              tintColor: COLORS.primary,
+            }}
+            onPress={() => console.log('Chat')}
+            //onPress={() => navigation.navigate('Chat')}
+          />
       </View>
+      
     );
   }
   // function renderRecommendedSection() {
@@ -193,7 +219,32 @@ const FoodDetail = ({navigation}) => {
           alignItems: 'center',
           paddingHorizontal: SIZES.padding,
           paddingBottom: SIZES.padding,
-        }}></View>
+        }}>
+          {/* StepperInput */}
+          <StepperInput value={qty}
+          onAdd={()=> setQty(qty+1)}
+          onMinus={()=> {
+            if (qty >1 ){
+              setQty (qty-1)
+            }
+          }}
+          />
+          {/* Add to Cart Btn */}
+          <TextButton 
+          buttonStyle={{
+            flex: 1,
+            flexDirection: 'row',
+            height: 60,
+            marginLeft: SIZES.radius,
+            paddingHorizontal: SIZES.radius,
+            borderRadius: SIZES.radius,
+            backgroundColor: COLORS.primary
+          }}
+          label="Buy Now"
+          label2= "$15.99"
+          onPress={()=> navigation.navigate("MyCart")}
+          />
+        </View>
     );
   }
   function renderDetails() {

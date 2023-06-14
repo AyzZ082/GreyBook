@@ -11,6 +11,11 @@ import CartQuantityButton from './CartQuantityButton';
 import IconLabel from './IconLabel';
 import LineDivider from './LineDivider';
 import Ratings from './Ratings';
+import StepperInput from './StepperInput';
+import FooterTotal from './FooterTotal';
+import PaymentMethod from './PaymentMethod';
+import ProfileOption from './ProfileOption';
+import TwoPointSlider from './TwoPointSlider';
 
 export {
   GBHeader,
@@ -25,5 +30,10 @@ export {
   CartQuantityButton,
   IconLabel,
   LineDivider,
+  TwoPointSlider,
   Ratings,
+  StepperInput,
+  FooterTotal,
+  PaymentMethod,
+  ProfileOption,
 };

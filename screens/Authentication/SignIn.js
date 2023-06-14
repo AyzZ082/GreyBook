@@ -1,5 +1,13 @@
-import React from 'react';
-import {View, Text, TouchableOpacity, Image} from 'react-native';
+import React, {useState} from 'react';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  ToastAndroid,
+  Platform,
+  Alert,
+} from 'react-native';
 
 import AuthLayout from './AuthLayout';
 
@@ -11,6 +19,54 @@ import {
 } from '../../components';
 import {COLORS, FONTS, SIZES, icons} from '../../constants';
 import {utils} from '../../utils';
+import axios from 'axios';
+import envURL from '../../envURL';
+
+// Footer
+
+//        <View>
+//         {/* FB */}
+//         <TextIconButton
+//           containerStyle={{
+//             height: 50,
+//             alignItems: 'center',
+//             borderRadius: SIZES.radius,
+//             backgroundColor: COLORS.blue,
+//           }}
+//           icon={icons.fb}
+//           iconPosition="LEFT"
+//           iconStyle={{
+//             tintColor: COLORS.white,
+//           }}
+//           label="Continue With Facebook"
+//           labelStyle={{
+//             marginLeft: SIZES.radius,
+//             color: COLORS.white,
+//           }}
+//           onPress={() => console.log('FB')}
+//         />
+//         {/* Google */}
+//         <TextIconButton
+//           containerStyle={{
+//             height: 50,
+//             alignItems: 'center',
+//             marginTop: SIZES.radius,
+//             borderRadius: SIZES.radius,
+//             backgroundColor: COLORS.lightGray2,
+//           }}
+//           icon={icons.google}
+//           iconPosition="LEFT"
+//           iconStyle={{
+//             tintColor: null,
+//           }}
+//           label="Continue With Google"
+//           labelStyle={{
+//             marginLeft: SIZES.radius,
+//             color: COLORS.black,
+//           }}
+//           onPress={() => console.log('Google')}
+//         />
+//       </View>
 
 const SignIn = ({navigation}) => {
   const [email, setEmail] = React.useState('');
@@ -22,7 +78,25 @@ const SignIn = ({navigation}) => {
   function isEnableSignIn() {
     return email != '' && password != '' && emailError == '';
   }
-
+  const showToast = msg => {
+    Alert.alert('Title', msg);
+  };
+  const TrySignin = async () => {
+    // console.log("rnv dtstud ",env.REACT_APP_BACKEND_URL)
+    await axios
+      .post(`${envURL.REACT_APP_BACKEND_URL}/account/login`, {email, password})
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err.response.data);
+        showToast(
+          err.response.data.msg
+            ? err.response.data.msg
+            : 'Something Went Wrong! Try Again',
+        );
+      });
+  };
   return (
     <AuthLayout
       title="Let's Sign You In"
@@ -52,7 +126,7 @@ const SignIn = ({navigation}) => {
                 source={
                   email == '' || (email != '' && emailError == '')
                     ? icons.correct
-                    : icons.cross
+                    : icons.cancel
                 }
                 style={{
                   height: 20,
@@ -126,7 +200,7 @@ const SignIn = ({navigation}) => {
               ? COLORS.primary
               : COLORS.transparentPrimary,
           }}
-          onPress={() => navigation.navigate('MainLayout')}
+          onPress={() => TrySignin()}
         />
         {/* CreateAccount */}
         <View
@@ -151,51 +225,6 @@ const SignIn = ({navigation}) => {
             onPress={() => navigation.navigate('SignUp')}
           />
         </View>
-      </View>
-
-      {/* Footer */}
-      <View>
-        {/* FB */}
-        <TextIconButton
-          containerStyle={{
-            height: 50,
-            alignItems: 'center',
-            borderRadius: SIZES.radius,
-            backgroundColor: COLORS.blue,
-          }}
-          icon={icons.fb}
-          iconPosition="LEFT"
-          iconStyle={{
-            tintColor: COLORS.white,
-          }}
-          label="Continue With Facebook"
-          labelStyle={{
-            marginLeft: SIZES.radius,
-            color: COLORS.white,
-          }}
-          onPress={() => console.log('FB')}
-        />
-        {/* Google */}
-        <TextIconButton
-          containerStyle={{
-            height: 50,
-            alignItems: 'center',
-            marginTop: SIZES.radius,
-            borderRadius: SIZES.radius,
-            backgroundColor: COLORS.lightGray2,
-          }}
-          icon={icons.google}
-          iconPosition="LEFT"
-          iconStyle={{
-            tintColor: null,
-          }}
-          label="Continue With Google"
-          labelStyle={{
-            marginLeft: SIZES.radius,
-            color: COLORS.black,
-          }}
-          onPress={() => console.log('Google')}
-        />
       </View>
     </AuthLayout>
   );

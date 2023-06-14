@@ -15,13 +15,15 @@ import {
   ForgotPassword,
   Otp,
   FoodDetail,
-  Checkout,
+  OrderTrack,
   MyCart,
   Success,
   AddCard,
   MyCard,
   DeliveryStatus,
   Map,
+  UserProfile,
+  UploadBook,
 } from './screens';
 
 const Stack = createStackNavigator();
@@ -52,20 +54,30 @@ const App = () => {
 
           // <Stack.Screen name="Map" component={Map} />
 
-          initialRouteName={'OnBoarding'}>
+          initialRouteName={'SignIn'}>
           <Stack.Screen name="FoodDetail" component={FoodDetail} />
           <Stack.Screen name="MainLayout" component={GBDrawer} />
-          <Stack.Screen name="Checkout" component={Checkout} />
+          <Stack.Screen name="OrderTrack" component={OrderTrack} />
+          <Stack.Screen name="UserProfile" component={UserProfile} />
+          <Stack.Screen name="UploadBook" component={UploadBook} />
 
           <Stack.Screen name="MyCart" component={MyCart} />
 
-          <Stack.Screen name="Success" component={Success} />
+          <Stack.Screen
+            name="Success"
+            component={Success}
+            options={{gestureEnabled: false}}
+          />
 
           <Stack.Screen name="AddCard" component={AddCard} />
 
           <Stack.Screen name="MyCard" component={MyCard} />
 
-          <Stack.Screen name="DeliveryStatus" component={DeliveryStatus} />
+          <Stack.Screen
+            name="DeliveryStatus"
+            component={DeliveryStatus}
+            options={{gestureEnabled: false}}
+          />
 
           <Stack.Screen name="Map" component={Map} />
           <Stack.Screen name="OnBoarding" component={OnBoarding} />
