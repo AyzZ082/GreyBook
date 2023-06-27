@@ -10,6 +10,8 @@ import {
 import {COLORS, dummyData, FONTS, icons, SIZES} from '../../constants';
 import {HorizontalCard, VerticalCard} from '../../components';
 import FilterModal from './FilterModal';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import jwt_decode from 'jwt-decode';
 
 const Section = ({title, onPress, children}) => {
   return (
@@ -42,7 +44,16 @@ const Home = ({navigation}) => {
 
   const [showFilterModal, setShowFilterModal] = React.useState(false);
 
+  const CheckLogin = async () => {
+    const token = await AsyncStorage.getItem('token');
+    console.log('token from the storage is found and it is', token);
+    const user = jwt_decode(token);
+    console.log('Decode token is givenm as ');
+    console.log(user);
+  };
   React.useEffect(() => {
+    console.log('i am in the home screen');
+    CheckLogin();
     handleChangeCategory(selectedCategoryId, selectedMenuType);
   }, []);
 
@@ -76,7 +87,7 @@ const Home = ({navigation}) => {
       <View
         style={{
           flexDirection: 'row',
-          
+
           height: 40,
           alignItems: 'center',
           marginHorizontal: SIZES.padding,
@@ -92,7 +103,7 @@ const Home = ({navigation}) => {
         />
         {/* Text Input */}
         <TextInput
-          style={{flex: 1, marginLeft: SIZES.radius, ...FONTS.body3,}}
+          style={{flex: 1, marginLeft: SIZES.radius, ...FONTS.body3}}
           placeholder="Seacrh books..."
         />
         {/* FilterButton */}
@@ -160,7 +171,13 @@ const Home = ({navigation}) => {
                 paddingRight: SIZES.radius,
                 alignItems: 'center',
               }}
-              imageStyle={{marginVertical: 35,marginHorizontal:15, height: 150, width: 150,borderRadius: 400,}}
+              imageStyle={{
+                marginVertical: 35,
+                marginHorizontal: 15,
+                height: 150,
+                width: 150,
+                borderRadius: 400,
+              }}
               item={item}
               onPress={() => console.log('HorizontalFoodCard')}
             />
@@ -169,7 +186,7 @@ const Home = ({navigation}) => {
       </Section>
     );
   }
-  function renderCategories( ) {
+  function renderCategories() {
     return (
       <Section
         title="Categories"
@@ -294,8 +311,8 @@ const Home = ({navigation}) => {
                 width: 110,
                 marginTop: 20,
                 borderRadius: 400,
-                marginHorizontal:10,
-                marginVertical:20,
+                marginHorizontal: 10,
+                marginVertical: 20,
               }}
               item={item}
               onPress={() => console.log('Card Clicked')}

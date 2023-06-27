@@ -11,8 +11,6 @@ import Animated from 'react-native-reanimated';
 import {connect} from 'react-redux';
 import {setSelectedTab} from '../stores/tabs/tabActions';
 
-
-
 const Drawer = createDrawerNavigator();
 const GBDrawerItem = ({label, icon, onPress, isFocused}) => {
   return (
@@ -112,7 +110,7 @@ const GBDrawerComponent = ({navigation, selectedTab, setSelectedTab}) => {
             isFocused={selectedTab == constants.screens.favourite}
             onPress={() => {
               setSelectedTab(constants.screens.favourite);
-              navigation.navigate('MainLayout');
+              navigation.navigate('Favourite');
             }}
           />
           {/* Divider */}
@@ -127,11 +125,11 @@ const GBDrawerComponent = ({navigation, selectedTab, setSelectedTab}) => {
           <GBDrawerItem
             label={'Track Your Order'}
             icon={icons.location}
-             isFocused={selectedTab == constants.screens.ordertrack}
-             onPress={() => {
+            isFocused={selectedTab == constants.screens.ordertrack}
+            onPress={() => {
               setSelectedTab(constants.screens.ordertrack);
               navigation.navigate('OrderTrack');
-             }}
+            }}
           />
           <GBDrawerItem
             label={'Settings'}

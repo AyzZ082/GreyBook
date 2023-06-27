@@ -22,7 +22,7 @@ import {
 } from '../../components';
 import HorizontalCard from '../../components';
 
-const FoodDetail = ({ navigation }) => {
+const FoodDetail = ({navigation}) => {
   // const [selectedCategoryId, setSelectedCategoryId] = React.useState(1);
   // const [selectedMenuType, setSelectedMenuType] = React.useState(1);
   // const [recommends, setRecommends] = React.useState([]);
@@ -114,7 +114,7 @@ const FoodDetail = ({ navigation }) => {
             onPress={() => navigation.navigate('MainLayout')}
           />
         }
-        rightComponent={<CartQuantityButton quantity={4} />}
+        rightComponent={<CartQuantityButton quantity={5} />}
       />
     );
   }
@@ -156,29 +156,28 @@ const FoodDetail = ({ navigation }) => {
             marginLeft: 3,
           }}
         />
-      
-      <IconButton
-            icon={icons.menu}
-            containerStyle={{
-              width: 40,
-              height: 40,
-              alignItems: 'center',
-              justifyContent: 'center',
-              borderColor: COLORS.primary,
-              borderWidth: 1,
-              borderRadius: SIZES.radius,
-              marginLeft: SIZES.radius
-            }}
-            iconStyle={{
-              width: 20,
-              height: 20,
-              tintColor: COLORS.primary,
-            }}
-            onPress={() => console.log('Chat')}
-            //onPress={() => navigation.navigate('Chat')}
-          />
+
+        <IconButton
+          icon={icons.menu}
+          containerStyle={{
+            width: 40,
+            height: 40,
+            alignItems: 'center',
+            justifyContent: 'center',
+            borderColor: COLORS.primary,
+            borderWidth: 1,
+            borderRadius: SIZES.radius,
+            marginLeft: SIZES.radius,
+          }}
+          iconStyle={{
+            width: 20,
+            height: 20,
+            tintColor: COLORS.primary,
+          }}
+          onPress={() => console.log('Chat')}
+          //onPress={() => navigation.navigate('Chat')}
+        />
       </View>
-      
     );
   }
   // function renderRecommendedSection() {
@@ -220,17 +219,18 @@ const FoodDetail = ({ navigation }) => {
           paddingHorizontal: SIZES.padding,
           paddingBottom: SIZES.padding,
         }}>
-          {/* StepperInput */}
-          <StepperInput value={qty}
-          onAdd={()=> setQty(qty+1)}
-          onMinus={()=> {
-            if (qty >1 ){
-              setQty (qty-1)
+        {/* StepperInput */}
+        <StepperInput
+          value={qty}
+          onAdd={() => setQty(qty + 1)}
+          onMinus={() => {
+            if (qty > 1) {
+              setQty(qty - 1);
             }
           }}
-          />
-          {/* Add to Cart Btn */}
-          <TextButton 
+        />
+        {/* Add to Cart Btn */}
+        <TextButton
           buttonStyle={{
             flex: 1,
             flexDirection: 'row',
@@ -238,13 +238,13 @@ const FoodDetail = ({ navigation }) => {
             marginLeft: SIZES.radius,
             paddingHorizontal: SIZES.radius,
             borderRadius: SIZES.radius,
-            backgroundColor: COLORS.primary
+            backgroundColor: COLORS.primary,
           }}
           label="Buy Now"
-          label2= "$15.99"
-          onPress={()=> navigation.navigate("MyCart")}
-          />
-        </View>
+          label2="$15.99"
+          onPress={() => navigation.navigate('MyCart')}
+        />
+      </View>
     );
   }
   function renderDetails() {

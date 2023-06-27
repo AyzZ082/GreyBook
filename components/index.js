@@ -16,6 +16,7 @@ import FooterTotal from './FooterTotal';
 import PaymentMethod from './PaymentMethod';
 import ProfileOption from './ProfileOption';
 import TwoPointSlider from './TwoPointSlider';
+import MyBook from './MyBook';
 
 export {
   GBHeader,
@@ -36,4 +37,5 @@ export {
   FooterTotal,
   PaymentMethod,
   ProfileOption,
+  MyBook,
 };

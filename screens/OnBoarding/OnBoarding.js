@@ -173,7 +173,7 @@ const OnBoarding = ({navigation}) => {
                     style={{
                       width: SIZES.width * 0.7,
                       height: SIZES.width * 0.7,
-                      marginBottom: -SIZES.padding * 0.6,
+                      marginBottom: SIZES.base,
                     }}></Image>
                 </ImageBackground>
               </View>
@@ -192,6 +192,7 @@ const OnBoarding = ({navigation}) => {
                 <Text
                   style={{
                     ...FONTS.body3,
+                    fontSize: 14,
                     marginTop: SIZES.radius * 0.2,
                     textAlign: 'center',
                     color: COLORS.darkGray,

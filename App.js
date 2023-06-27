@@ -24,6 +24,11 @@ import {
   Map,
   UserProfile,
   UploadBook,
+  MyBooks,
+  MessagesScreen,
+  ChatScreen,
+  Favourite,
+  VerifyAccount,
 } from './screens';
 
 const Stack = createStackNavigator();
@@ -54,12 +59,23 @@ const App = () => {
 
           // <Stack.Screen name="Map" component={Map} />
 
-          initialRouteName={'SignIn'}>
+          initialRouteName={'UploadBook'}>
           <Stack.Screen name="FoodDetail" component={FoodDetail} />
           <Stack.Screen name="MainLayout" component={GBDrawer} />
           <Stack.Screen name="OrderTrack" component={OrderTrack} />
           <Stack.Screen name="UserProfile" component={UserProfile} />
           <Stack.Screen name="UploadBook" component={UploadBook} />
+          <Stack.Screen name="MyBooks" component={MyBooks} />
+          <Stack.Screen name="Messages" component={MessagesScreen} />
+          <Stack.Screen name="Favourite" component={Favourite} />
+          <Stack.Screen name="VerifyAccount" component={VerifyAccount} />
+          <Stack.Screen
+            name="ChatScreen"
+            component={ChatScreen}
+            // options={({route}) => ({
+            //   title: route.params.userName,
+            // })}
+          />
 
           <Stack.Screen name="MyCart" component={MyCart} />
 

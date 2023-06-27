@@ -6,6 +6,7 @@ export const COLORS = {
   //primary: '#D4AF37',
   //primary: '#76BA1B',
   primary: '#32223f',
+  //primary: '#5A40E2',
   // transparentPrimary: 'rgba(50, 34, 63, 0.4)',
   transparentPrimary: 'rgba(200, 159, 233, 0.5)',
   orange: '#55185d',

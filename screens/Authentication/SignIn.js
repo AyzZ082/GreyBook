@@ -21,6 +21,7 @@ import {COLORS, FONTS, SIZES, icons} from '../../constants';
 import {utils} from '../../utils';
 import axios from 'axios';
 import envURL from '../../envURL';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Footer
 
@@ -84,15 +85,20 @@ const SignIn = ({navigation}) => {
   const TrySignin = async () => {
     // console.log("rnv dtstud ",env.REACT_APP_BACKEND_URL)
     await axios
-      .post(`${envURL.REACT_APP_BACKEND_URL}/account/login`, {email, password})
-      .then(res => {
-        console.log(res);
+      .post(`${envURL.REACT_APP_BACKEND_URL}/account/login`, {
+        Email: email,
+        Password: password,
+      })
+      .then(async res => {
+        console.log('user signed in successfully');
+        await AsyncStorage.setItem('token', res.data.authtoken);
+        navigation.navigate('MainLayout');
       })
       .catch(err => {
-        console.log(err.response.data);
-        showToast(
-          err.response.data.msg
-            ? err.response.data.msg
+        Alert.alert(
+          'Title',
+          err.response.data.error
+            ? err.response.data.error
             : 'Something Went Wrong! Try Again',
         );
       });

@@ -39,6 +39,7 @@ const Otp = ({navigation, route}) => {
       })
       .then(res => {
         console.log(res.data);
+        //   localStorage.setItem('authtoken', res.data.authtoken);
         navigation.navigate('MainLayout');
       })
       .catch(err => {

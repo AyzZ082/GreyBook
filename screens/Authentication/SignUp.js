@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, Text, TouchableOpacity, Image, Alert} from 'react-native';
 
 import AuthLayout from './AuthLayout';
@@ -19,9 +19,11 @@ const SignUp = ({navigation}) => {
   const [password, setPassword] = React.useState('');
   const [username, setUsername] = React.useState('');
   const [showPass, setshowPass] = React.useState(false);
+  const [phone, setPhone] = useState('');
 
   const [emailError, setEmailError] = React.useState('');
   const [usernameError, setUsernameError] = React.useState('');
+  const [phoneError, setPhoneeError] = React.useState('');
   const [passError, setPassError] = React.useState('');
 
   function isEnableSignUp() {
@@ -37,7 +39,7 @@ const SignUp = ({navigation}) => {
 
   const TrySignUp = async () => {
     // console.log("rnv dtstud ",env.REACT_APP_BACKEND_URL)
-    console.log('Hello');
+    //console.log('Hello');
     await axios
       .post(`${envURL.REACT_APP_BACKEND_URL}/account/createaccount`, {
         Email: email,
@@ -111,6 +113,7 @@ const SignUp = ({navigation}) => {
             </View>
           }
         />
+
         <FormInput
           label="Email"
           keyboardType="email-address"
@@ -139,6 +142,40 @@ const SignUp = ({navigation}) => {
                     email == ''
                       ? COLORS.gray
                       : email != '' && emailError == ''
+                      ? COLORS.green
+                      : COLORS.red,
+                }}
+              />
+            </View>
+          }
+        />
+        <FormInput
+          label="Phone"
+          keyboardType="number"
+          onChange={value => {
+            //validate Email
+            utils.validatePhone(value, setPhoneeError);
+            setPhone(value);
+          }}
+          errorMsg={phoneError}
+          appendComponent={
+            <View
+              style={{
+                justifyContent: 'center',
+              }}>
+              <Image
+                source={
+                  phone == '' || (phone != '' && phoneError == '')
+                    ? icons.correct
+                    : icons.cancel
+                }
+                style={{
+                  height: 20,
+                  width: 20,
+                  tintColor:
+                    phone == ''
+                      ? COLORS.gray
+                      : phone != '' && phoneError == ''
                       ? COLORS.green
                       : COLORS.red,
                 }}

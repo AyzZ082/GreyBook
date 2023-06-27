@@ -44,8 +44,10 @@ import AuthLayout from './Authentication/AuthLayout';
 import UserProfile from './Profile/UserProfile';
 
 import UploadBook from './Profile/UploadBook';
-
-
+import MyBooks from './Profile/MyBooks';
+import MessagesScreen from './Chat/MessagesScreen';
+import ChatScreen from './Chat/ChatScreen';
+import VerifyAccount from './Profile/VerifyAccount';
 
 export {
   MainLayout,
@@ -71,4 +73,8 @@ export {
   Map,
   UserProfile,
   UploadBook,
+  MyBooks,
+  MessagesScreen,
+  ChatScreen,
+  VerifyAccount,
 };

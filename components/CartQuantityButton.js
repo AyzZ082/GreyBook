@@ -11,7 +11,7 @@ const CartQuantityButton = ({containerStyle, quantity, iconStyle, onPress}) => {
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: SIZES.radius,
-        backgroundColor: COLORS.gray,
+        backgroundColor: COLORS.transparentPrimary,
         ...containerStyle,
       }}
       onPress={onPress}>
@@ -34,7 +34,7 @@ const CartQuantityButton = ({containerStyle, quantity, iconStyle, onPress}) => {
           alignItems: 'center',
           justifyContent: 'center',
           borderRadius: SIZES.radius,
-          backgroundColor: COLORS.black,
+          //backgroundColor: COLORS.transparentPrimary,
         }}>
         <Text
           style={{

@@ -29,13 +29,14 @@ const screens = {
   main_layout: 'MainLayout',
   home: 'Home',
   profile: 'Profile',
-  upload: "Upload",
-  search: "Search",
-  cart: "MyCart",
+  upload: 'Upload',
+  mybooks: 'MyBooks',
+  search: 'Search',
+  cart: 'MyCart',
   favourite: 'Favourite',
-  notification: 'Notification',
+  notification: 'Messages',
   my_wallet: 'My Wallet',
-  ordertrack: "Track Order"
+  ordertrack: 'Track Order',
 };
 
 const bottom_tabs = [
@@ -43,14 +44,14 @@ const bottom_tabs = [
     id: 0,
     label: screens.home,
   },
-  
+
   {
     id: 1,
     label: screens.search,
   },
   {
     id: 2,
-    label: screens.upload,
+    label: screens.mybooks,
   },
   {
     id: 3,
@@ -136,33 +137,33 @@ const tags = [
 ];
 const track_order_status = [
   {
-      id: 1,
-      title: "Order Confirmed",
-      sub_title: "Your order has been received"
+    id: 1,
+    title: 'Order Confirmed',
+    sub_title: 'Your order has been received',
   },
   {
-      id: 2,
-      title: "Order Prepared",
-      sub_title: "Your order has been prepared"
+    id: 2,
+    title: 'Order Prepared',
+    sub_title: 'Your order has been prepared',
   },
   {
-      id: 3,
-      title: "Delivery in Progress",
-      sub_title: "Hang on! Your food is on the way"
+    id: 3,
+    title: 'Delivery in Progress',
+    sub_title: 'Hang on! Your food is on the way',
   },
   {
-      id: 4,
-      title: "Delivered",
-      sub_title: "Enjoy your meal!"
+    id: 4,
+    title: 'Delivered',
+    sub_title: 'Enjoy your meal!',
   },
   {
-      id: 5,
-      title: "Rate Us",
-      sub_title: "Help us improve our service"
-  }
-]
+    id: 5,
+    title: 'Rate Us',
+    sub_title: 'Help us improve our service',
+  },
+];
 
-const GOOGLE_MAP_API_KEY = ""
+const GOOGLE_MAP_API_KEY = '';
 
 export default {
   onboarding_screens,
@@ -172,5 +173,5 @@ export default {
   ratings,
   tags,
   track_order_status,
-    GOOGLE_MAP_API_KEY,
+  GOOGLE_MAP_API_KEY,
 };
